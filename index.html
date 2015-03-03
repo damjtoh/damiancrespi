@@ -173,7 +173,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <form name="sentMessage" id="contactForm" novalidate method="POST">
+                    <form name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Name</label>
@@ -494,25 +494,27 @@
 
     $(document).ready(function() {
 
-        var testing = false;
-
         $('#mandarMensaje').on('click', function() {
+            event.preventDefault();
             $.ajax({
                 url: "//formspree.io/info@damiancrespi.com", 
                 method: "POST",
                 data: $('#contactForm').serialize(),
                 dataType: "json",
                 success: function(data) {
+                    $('#contact').focus();
                     $('#contact').empty();
-                    $('#contact').append('<div class="center-text"><h4><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Your message was sent successfully.</h4></div>');
+                    $('#contact').append('<div class="text-center"><h4 class="text-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Your message was sent successfully.</h4></div>').show('slow');
 
                 },
                 error: function() {
+                    $('#contact').focus();
                     $('#contact').empty();
-                    $('#contact').append('<div class="center-text"><h4><span class="glyphicon glyphicon-cross" aria-hidden="true"></span>There was an error sending your message.</h4></div>');
+                    $('#contact').append('<div class="text-center"><h4 class="text-danger"><span class="glyphicon glyphicon-cross" aria-hidden="true"></span>There was an error sending your message.</h4></div>').show('slow');
                 }
             });
         });
+    });
 
     </script>
 
